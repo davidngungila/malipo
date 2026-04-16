@@ -47,7 +47,7 @@ class ClickPesaAPI {
     /**
      * Get valid token (generate new one if expired)
      */
-    private function getValidToken() {
+    public function getValidToken() {
         if (!$this->token || $this->tokenExpiry <= time()) {
             $this->generateToken();
         }
