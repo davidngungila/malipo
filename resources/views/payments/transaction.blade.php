@@ -440,8 +440,8 @@ This is a computer-generated receipt<br>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0 w-8 h-8 @if($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED') bg-green-100 @else bg-yellow-100 @endif rounded-full flex items-center justify-center">
-                                    <i class="fas @if($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED') fa-check text-green-600 @else fa-spinner fa-spin text-yellow-600 @endif text-xs"></i>
+                                <div class="flex-shrink-0 w-8 h-8 @if(isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) bg-green-100 @else bg-yellow-100 @endif rounded-full flex items-center justify-center">
+                                    <i class="fas @if(isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) fa-check text-green-600 @else fa-spinner fa-spin text-yellow-600 @endif text-xs"></i>
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-sm font-medium text-gray-900">Payment Processing</p>
@@ -449,12 +449,12 @@ This is a computer-generated receipt<br>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0 w-8 h-8 @if($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED') bg-green-100 @else bg-gray-100 @endif rounded-full flex items-center justify-center">
-                                    <i class="fas @if($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED') fa-check text-green-600 @else fa-clock text-gray-400 @endif text-xs"></i>
+                                <div class="flex-shrink-0 w-8 h-8 @if(isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) bg-green-100 @else bg-gray-100 @endif rounded-full flex items-center justify-center">
+                                    <i class="fas @if(isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) fa-check text-green-600 @else fa-clock text-gray-400 @endif text-xs"></i>
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-sm font-medium text-gray-900">Settlement Complete</p>
-                                    <p class="text-xs text-gray-500">@if($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED') {{ isset($transaction['updatedAt']) ? date('H:i:s', strtotime($transaction['updatedAt'])) : 'N/A' }} @else Pending @endif</p>
+                                    <p class="text-xs text-gray-500">@if(isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) {{ isset($transaction['updatedAt']) ? date('H:i:s', strtotime($transaction['updatedAt'])) : 'N/A' }} @else Pending @endif</p>
                                 </div>
                             </div>
                         </div>
@@ -865,10 +865,10 @@ RISK ASSESSMENT:
 - Overall Risk Level: Low-Medium
 
 TRANSACTION FLOW:
-1. Payment Request Initiated: {{ isset($transaction['createdAt']) ? date('H:i:s', strtotime($transaction['createdAt'])) : 'N/A' }}
+1. Payment Request Initiated: {{ isset($transaction) && isset($transaction['createdAt']) ? date('H:i:s', strtotime($transaction['createdAt'])) : 'N/A' }}
 2. Customer Authentication: Verified via USSD
 3. Payment Processing: ClickPesa API Gateway
-4. Settlement Complete: @if(isset($transaction) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) {{ isset($transaction['updatedAt']) ? date('H:i:s', strtotime($transaction['updatedAt'])) : 'N/A' }} @else Pending @endif
+4. Settlement Complete: @if(isset($transaction) && isset($transaction['status']) && ($transaction['status'] === 'SUCCESS' || $transaction['status'] === 'SETTLED')) {{ isset($transaction['updatedAt']) ? date('H:i:s', strtotime($transaction['updatedAt'])) : 'N/A' }} @else Pending @endif
 
 API DETAILS:
 - Response Code: 200
