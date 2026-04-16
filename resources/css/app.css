@@ -1,0 +1,281 @@
+@import 'tailwindcss';
+
+@layer base {
+    :root {
+        --color-primary: #14532d;
+        --color-primary-dark: #052e16;
+        --color-primary-light: #166534;
+        --font-lato: 'Lato', sans-serif;
+        --font-manrope: 'Manrope', sans-serif;
+        --font-rubik: 'Rubik', sans-serif;
+    }
+    
+    html, body {
+        height: 100%;
+        min-height: 100vh;
+        font-family: var(--font-lato);
+    }
+    
+    /* Apply fonts to different elements */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-rubik);
+        font-weight: 600;
+    }
+    
+    .font-manrope {
+        font-family: var(--font-manrope);
+    }
+    
+    .font-rubik {
+        font-family: var(--font-rubik);
+    }
+    
+    .font-lato {
+        font-family: var(--font-lato);
+    }
+    
+    /* Sidebar specific fonts */
+    #sidebar {
+        font-family: var(--font-manrope);
+    }
+    
+    #sidebar h1, #sidebar h2, #sidebar h3 {
+        font-family: var(--font-rubik);
+    }
+    
+    /* Header specific fonts */
+    header {
+        font-family: var(--font-manrope);
+    }
+    
+    header h1 {
+        font-family: var(--font-rubik);
+        font-weight: 700;
+    }
+    
+    /* Main content fonts */
+    main {
+        font-family: var(--font-lato);
+    }
+    
+    main h1, main h2, main h3, main h4, main h5, main h6 {
+        font-family: var(--font-rubik);
+    }
+    
+    /* Footer fonts */
+    footer {
+        font-family: var(--font-manrope);
+    }
+    
+    /* Button fonts */
+    button, .btn {
+        font-family: var(--font-manrope);
+        font-weight: 500;
+    }
+    
+    /* Table fonts */
+    table {
+        font-family: var(--font-lato);
+    }
+    
+    table th {
+        font-family: var(--font-rubik);
+        font-weight: 600;
+    }
+    
+    /* Form fonts */
+    input, select, textarea {
+        font-family: var(--font-lato);
+    }
+    
+    /* Navigation fonts */
+    nav {
+        font-family: var(--font-manrope);
+    }
+    
+    nav a {
+        font-family: var(--font-manrope);
+        font-weight: 500;
+    }
+}
+
+@layer components {
+    .sidebar-collapsed {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar-open {
+        transform: translateX(0);
+    }
+    
+    /* Ensure the translate-x-full class works */
+    .-translate-x-full {
+        transform: translateX(-100%) !important;
+    }
+    
+    /* Static sidebar and header on desktop */
+    @media (min-width: 1025px) {
+        #sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 40;
+            scrollbar-width: thin;
+            scrollbar-color: #4B5563 #1F2937;
+        }
+        
+        #sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        #sidebar::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        
+        #sidebar::-webkit-scrollbar-thumb {
+            background-color: #4B5563;
+            border-radius: 3px;
+        }
+        
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        
+        /* Ensure main content scrolls properly */
+        main {
+            height: calc(100vh - 160px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        /* Footer positioning inside content */
+        main footer {
+            margin-top: auto;
+        }
+    }
+    
+    /* Mobile and tablet responsiveness */
+    @media (max-width: 1024px) {
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            height: 100vh;
+            width: 16rem;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(0);
+        }
+        
+        #sidebar.-translate-x-full {
+            transform: translateX(-100%);
+        }
+        
+        .flex-1 {
+            margin-left: 0 !important;
+        }
+        
+        /* Static header on mobile/tablet */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        
+        /* Menu icon visibility */
+        #menuToggle {
+            display: block !important;
+        }
+    }
+    
+    /* Desktop - hide menu toggle */
+    @media (min-width: 1025px) {
+        #menuToggle {
+            display: none !important;
+        }
+    }
+    
+    /* Medium screens */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        #sidebar {
+            width: 20rem !important;
+        }
+    }
+    
+    /* Small screens */
+    @media (max-width: 767px) {
+        #sidebar {
+            width: 18rem !important;
+        }
+        
+        main {
+            padding: 1rem !important;
+        }
+    }
+    
+    /* Extra small screens */
+    @media (max-width: 480px) {
+        #sidebar {
+            width: 16rem !important;
+        }
+        
+        .container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+    }
+    
+    /* Large screens */
+    @media (min-width: 1536px) {
+        #sidebar {
+            width: 20rem !important;
+        }
+    }
+    
+    /* Ensure footer stays at bottom */
+    .sticky-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+    }
+    
+    /* Table responsiveness */
+    @media (max-width: 768px) {
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .table-responsive table {
+            min-width: 600px;
+        }
+    }
+    
+    /* Card responsiveness */
+    @media (max-width: 640px) {
+        .card-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+        }
+    }
+    
+    /* Text truncation for long content */
+    .truncate-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Button responsiveness */
+    @media (max-width: 640px) {
+        .btn-responsive {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
